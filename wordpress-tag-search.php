@@ -9,17 +9,17 @@ Author URI: http://martyspellerberg.com
 License: GPLv2+
 */
 
-
-// Load TDOTF
-require_once(dirname(__FILE__) . '/tdotf/tdotf.php');
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+if ( !is_plugin_active('tdo-tag-fixes/tdotf.php') ) {
+	require_once(dirname(__FILE__) . '/tdotf/tdotf.php');
+}
 
 
 // Load assets
-define('MY_PLUGIN_FOLDER',str_replace("\\",'/',dirname(__FILE__)));
 
 function mca_gallery_scripts_method() {
 
-	wp_enqueue_script("jquery");
+	if(!wp_script_is('jquery')) wp_enqueue_script("jquery");
 
     $tagsearchcss = plugins_url( '/assets/tagsearch.css' , __FILE__ );
     wp_register_style('tagsearchcss',$tagsearchcss);
